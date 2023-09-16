@@ -1,3 +1,5 @@
+//const { error } = require("console");
+
 const modalContainer = document.getElementById('modal-container');
 const modalOverlay = document.getElementById('modal-overlay');
 
@@ -77,8 +79,67 @@ const displayCart = () => {
     modalFooter.className = 'modal-footer';
     modalFooter.innerHTML = `
         <div class="total-price">Total: ${total}</div>
+        <button class="btn-primary" id="checkout-btn">ir al checkout</button>
+        <div id="button-checkout"></div>
         `;
     modalContainer.append(modalFooter);    
+    //mp;
+    const mercadopago = new MercadoPago("TEST-117058bd-d769-4ac9-b02d-5fca56637329",{
+        locale: "es-AR", //las mas comunes son: 'pt-BR', 'es-AR' y 'en-US'
+    });
+
+    const checkoutButton = modalFooter.querySelector("#checkout-btn");
+
+    checkoutButton.addEventListener("click", function() {
+        //para evitar dos ordenes de compra
+        checkoutButton.remove();
+            const orderData = {
+                quantity: 1,
+                description: "Compra de E-comerce",
+                price: total,
+            };
+
+            fetch("http://localhost:8080/create_preference", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(orderData),
+            })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (preference) {
+                createCheckoutButton(preference.id);;
+            })
+            .then(function () {
+                alert("Error Inesperado");
+            });
+        });
+
+        function createCheckoutButton(preferenceId) {
+            const bricksBuilder = mercadopago.bricks();
+
+            const renderComponent = async (bricksBuilder) => {
+                //if(window.checkoutButton) checkoutButton.unmount();
+
+                await bricksBuilder.create(
+                    "wallet",
+                    "button-checkout",// class/id donde el boton de pago sera mostrado
+                    {
+                        initialization: {
+                            preferenceId: preferenceId,
+                        },
+                        callbacks: {
+                            onError: (error) => console.log(error),
+                            onReady: ()=>{},
+                        },
+                    }
+                );
+        };
+        window.checkoutButton = renderComponent(bricksBuilder);
+    }
+
     }else{
       const modalText = document.createElement('h2');
       modalText.className = 'modalBody';

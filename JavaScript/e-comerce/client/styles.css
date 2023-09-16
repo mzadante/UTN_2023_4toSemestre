@@ -1,7 +1,13 @@
 .card-products-container{
-    margin: 5vh auto;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-content: space-evenly;
+    margin-top: 10px;
 }
 .card-products{
+    padding: 1rem;
     text-align: center;
     display: flex;
     flex-direction: row;
@@ -10,6 +16,8 @@
 }
 
 .card-products img{
+    background-color: rgb(3, 87, 41);
+    padding: .5rem;
     margin-top: 40px;
     width: 250px;
     height: 250px;
@@ -180,3 +188,18 @@
     margin-bottom: 10px;
 }
 
+.btn-primary{
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px 16px;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+.btn-primary:hover{
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
