@@ -4,6 +4,7 @@ let web = process.env.MI_WEB || 'No tengo web';
 console.log('Hola ' + nombre);
 console.log('Mi web es: ' + web);
 
+console.log("Ultima ejecucion");
 //para ocultar claves o tokens de acceso
 //colocamos eso en node y el nombre de la variable
 //$env:NOMBRE="Carlos"; node entorno.js
