@@ -84,7 +84,7 @@ const displayCart = () => {
         `;
     modalContainer.append(modalFooter);    
     //mp;
-    const mercadopago = new MercadoPago("TEST-117058bd-d769-4ac9-b02d-5fca56637329",{
+    const mercadopago = new MercadoPago("?",{
         locale: "es-AR", //las mas comunes son: 'pt-BR', 'es-AR' y 'en-US'
     });
 
